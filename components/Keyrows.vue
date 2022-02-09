@@ -8,6 +8,8 @@
 #keyboard-row {
     display: grid;
     gap: 2px;
-    grid-template-columns: repeat(14, 1fr);
+    grid-template-rows: 4em;
+    grid-auto-flow: column;
+    grid-auto-columns: min-content;
 }
 </style>

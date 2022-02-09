@@ -1,11 +1,12 @@
 <template>
-    <div class="alphakey">
+    <div class="alphakey" :id="id">
         <div class="alphabet">
-            <h1>Q</h1>
+            <h1>{{ keysymbol ? keysymbol : id.charAt(3) }}</h1>
         </div>
         <div class="pronun">
-            <p>iu</p>
-            <p>ing</p>
+            <p v-for="item in keymap">
+            {{ item }}
+            </p>
         </div>
     </div>
 </template>
@@ -18,7 +19,7 @@
         border-radius: 3px;
         display: flex;
         flex-direction: row;
-        flex: auto;
+        flex: flex-grow;
         justify-content: space-around;
         padding: 0.5rem;
     }
@@ -27,7 +28,7 @@
         display: flexbox;
     }
     .alphabet h1 {
-        font-size: 1.5em;
+        font-size: 1em;
         font-weight: bold;
         color: #000a12;
         margin: 0;
@@ -39,6 +40,7 @@
     }
     .pronun p {
         margin: 0.1em 0 0;
+        font-size: 0.75em;
     }
 </style>
 
@@ -52,10 +54,18 @@
                     console.log(error);
                 }
             },
-
+            handleKeyup(event) {
+                try {
+                    document.getElementById(event.code).style.backgroundColor = '#f5f5f5';
+                } catch (error) {
+                    console.log(error);
+                }
+            }
         },
         mounted() {
             document.addEventListener('keydown', this.handleKeydown);
-        }
+            document.addEventListener('keyup', this.handleKeyup);
+        },
+        props: ['keymap','id',"keysymbol"]
     }
 </script>
